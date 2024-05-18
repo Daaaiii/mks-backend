@@ -1,10 +1,10 @@
 {
   "name": "mks-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Projeto de backend para um catalogo de filmes utilizando Nestjs, TypeScript, Docker, Redis, Swagger, Jest, Eslint, Prettier, Husky, Lint-staged, TypeOrm e Postgres",
+  "author": "Daiane Bolzan",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT LICENSE",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
