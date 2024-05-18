@@ -17,7 +17,7 @@ export class UserEntity {
   @Column({ unique: true, nullable: false, length: 127 })
   email: string;
 
-  @Column({ nullable: false, length: 32 })
+  @Column({ nullable: false, length: 132 })
   password: string;
 
   @CreateDateColumn()

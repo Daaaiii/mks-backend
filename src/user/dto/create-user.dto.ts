@@ -32,8 +32,8 @@ export class CreateUserDto {
         'Password must include at least one uppercase letter, one lowercase letter, one number, and one special character',
     },
   )
-  @MaxLength(32, {
-    message: 'Password is too long, must be less than 32 characters',
+  @MaxLength(132, {
+    message: 'Password is too long',
   })
   password: string;
 }
