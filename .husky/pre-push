@@ -1,0 +1,7 @@
+npx --no-install
+
+npm run typecheck
+
+npm run test
+
+#npm build
