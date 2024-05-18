@@ -1,0 +1,27 @@
+version: '3.8' 
+
+services:
+  redis:
+    container_name: redis-cache
+    image: redis
+    environment:
+     -  REDIS_USER=redis
+     -  REDIS_PASSWORD=redis
+     -  REDIS_DB=movies
+    ports:
+      - "6379:6379"  
+
+
+  postgres:
+    container_name: pg-db-movies
+    image: postgres
+    environment:
+     -  POSTGRES_USER=postgres
+     -  POSTGRES_PASSWORD=docker
+     -  POSTGRES_DB=movies
+    ports:
+      - 5432:5432   
+
+
+
+ 
