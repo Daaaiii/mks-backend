@@ -37,7 +37,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
         },
       },
       defaults: {
-        from: '"Dai" <daiane.bolzan.dev@gmail.com>',
+        from: '"Dai" <MS_DG00ZU@trial-vywj2lp7dkkl7oqz.mlsender.net>',
       },
       template: {
         dir: __dirname + '/templates',

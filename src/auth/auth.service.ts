@@ -5,10 +5,10 @@ import {
 } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer/dist';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { RegisterAuthDTO } from './dto/register-auth.dto';
 
@@ -92,14 +92,10 @@ export class AuthService {
         audience: 'users',
       });
 
-      if (isNaN(Number(data.id))) {
-        throw new BadRequestException('Token é inválido.');
-      }
-
       const salt = await bcrypt.genSalt();
       password = await bcrypt.hash(password, salt);
 
-      await this.usersRepository.update(Number(data.id), {
+      await this.usersRepository.update(data.id, {
         password,
       });
 
