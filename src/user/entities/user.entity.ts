@@ -1,7 +1,9 @@
+import { FavoriteMovie } from 'src/favorite-movies/entities/favorite-movies.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -19,6 +21,9 @@ export class UserEntity {
 
   @Column({ nullable: false, length: 132 })
   password: string;
+
+  @OneToMany(() => FavoriteMovie, (favoriteMovie) => favoriteMovie.user)
+  favoriteMovies: FavoriteMovie[];
 
   @CreateDateColumn()
   createdAt: Date;
