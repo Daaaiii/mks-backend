@@ -3,12 +3,14 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer/dist';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { RegisterAuthDTO } from './dto/register-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +20,7 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
+    private readonly mailer: MailerService,
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
   ) {}
@@ -61,6 +64,11 @@ export class AuthService {
       return false;
     }
   }
+  async register(data: RegisterAuthDTO) {
+    const user = await this.userService.create(data);
+
+    return this.createToken(user);
+  }
 
   async login(email: string, password: string) {
     const user = await this.usersRepository.findOneBy({
@@ -101,5 +109,39 @@ export class AuthService {
     } catch (e) {
       throw new BadRequestException(e);
     }
+  }
+
+  async forget(email: string) {
+    const user = await this.usersRepository.findOneBy({
+      email,
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Wrong Email.');
+    }
+
+    const token = this.jwtService.sign(
+      {
+        id: user.id,
+      },
+      {
+        expiresIn: '30 minutes',
+        subject: String(user.id),
+        issuer: 'forget',
+        audience: 'users',
+      },
+    );
+
+    await this.mailer.sendMail({
+      subject: 'Recuperação de Senha',
+      to: user.email,
+      template: 'forget',
+      context: {
+        name: user.name,
+        token,
+      },
+    });
+
+    return { success: true };
   }
 }
