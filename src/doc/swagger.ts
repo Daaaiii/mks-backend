@@ -13,7 +13,7 @@ export const swaggerDocumentConfig = new DocumentBuilder()
       bearerFormat: 'JWT',
       description: 'Use `accessToken`, ele é obtido no login.',
     },
-    'access',
+    'access-token',
   )
   .addBearerAuth(
     {
