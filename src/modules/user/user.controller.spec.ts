@@ -33,7 +33,7 @@ describe('UserController', () => {
 
   it('should call service method', () => {
     const spy = jest.spyOn(service, 'findAll');
-    controller.findAll();
+    controller.findAll(1, 10);
     expect(spy).toHaveBeenCalled();
   });
 });

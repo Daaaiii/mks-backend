@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthGuard } from './auth.guard';
-import { AuthService } from '../../auth/auth.service';
-import { UserService } from '../../user/user.service';
+import { AuthService } from 'src/modules/auth/auth.service';
+import { UserService } from 'src/modules/user/user.service';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
