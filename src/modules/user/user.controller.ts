@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,6 +20,7 @@ import {
   ApiBody,
   ApiParam,
   ApiBearerAuth,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { UserEntity } from './entities/user.entity';
 
@@ -44,13 +46,15 @@ export class UserController {
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
   @ApiResponse({
     status: 200,
     description: 'List of users',
     type: [UserEntity],
   })
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.userService.findAll(page, limit);
   }
 
   @Get(':id')

@@ -34,15 +34,19 @@ export class UserService {
     return this.usersRepository.save(user);
   }
 
-  async findAll() {
+  async findAll(page: number = 1, limit: number = 10) {
+    const skip = (page - 1) * limit;
     const cachedUsers = await this.cacheManager.get<UserEntity[]>('users');
     if (cachedUsers) {
       return cachedUsers;
     }
 
-    const users = await this.usersRepository.find();
+    const [users, total] = await this.usersRepository.findAndCount({
+      skip,
+      take: limit,
+    });
     await this.cacheManager.set('users', users);
-    return users;
+    return { data: users, total, page, lastPage: Math.ceil(total / limit) };
   }
 
   async findOne(id: string) {
@@ -51,7 +55,11 @@ export class UserService {
       return cachedUser;
     }
 
-    const user = await this.usersRepository.findOneBy({ id });
+    const user = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['favoriteMovies'],
+    });
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
