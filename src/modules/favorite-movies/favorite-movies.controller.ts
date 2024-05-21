@@ -1,8 +1,10 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { FavoriteMoviesService } from './favorite-movies.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
+import { AuthGuard } from '../../guards/auth/auth.guard';
 
-@Controller('favorite-movies')
+@UseGuards(AuthGuard)
+@Controller('favorite')
 export class FavoriteMoviesController {
   constructor(private readonly favoriteMoviesService: FavoriteMoviesService) {}
 
@@ -10,10 +12,11 @@ export class FavoriteMoviesController {
   async addFavorite(
     @Body('userId') userId: number,
     @Body('movieId') movieId: string,
+    @Body('title') title: string,
   ) {
     const user = new UserEntity();
     user.id = String(userId);
-    return this.favoriteMoviesService.addFavorite(user, movieId);
+    return this.favoriteMoviesService.addFavorite(user, movieId, title);
   }
 
   @Get(':userId')

@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
-import { MoviesModule } from './movies/movies.module';
-import { AuthModule } from './auth/auth.module';
-import { FavoriteMoviesModule } from './favorite-movies/favorite-movies.module';
+import { MoviesModule } from './modules/movies/movies.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { FavoriteMoviesModule } from './modules/favorite-movies/favorite-movies.module';
 
 @Module({
   imports: [

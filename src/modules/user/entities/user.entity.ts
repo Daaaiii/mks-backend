@@ -1,4 +1,4 @@
-import { FavoriteMovie } from 'src/favorite-movies/entities/favorite-movies.entity';
+import { FavoriteMovie } from '../../favorite-movies/entities/favorite-movies.entity';
 import {
   Column,
   CreateDateColumn,

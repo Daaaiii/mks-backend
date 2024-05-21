@@ -1,3 +1,4 @@
+import { UserEntity } from '../../user/entities/user.entity';
 import {
   Entity,
   Column,
@@ -5,9 +6,8 @@ import {
   ManyToOne,
   CreateDateColumn,
 } from 'typeorm';
-import { UserEntity } from '../../user/entities/user.entity';
 
-@Entity()
+@Entity('favorite_movies')
 export class FavoriteMovie {
   @PrimaryGeneratedColumn()
   id: number;

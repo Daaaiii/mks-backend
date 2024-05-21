@@ -11,10 +11,15 @@ export class FavoriteMoviesService {
     private favoriteMovieRepository: Repository<FavoriteMovie>,
   ) {}
 
-  async addFavorite(user: UserEntity, movieId: string): Promise<FavoriteMovie> {
+  async addFavorite(
+    user: UserEntity,
+    movieId: string,
+    title: string,
+  ): Promise<FavoriteMovie> {
     const favoriteMovie = this.favoriteMovieRepository.create({
       user,
       movieId,
+      title,
     });
     return this.favoriteMovieRepository.save(favoriteMovie);
   }
