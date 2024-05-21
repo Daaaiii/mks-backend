@@ -25,7 +25,6 @@ import {
 import { UserEntity } from './entities/user.entity';
 
 @ApiTags('user')
-@UseGuards(AuthGuard)
 @ApiBearerAuth('access-token')
 @Controller('user')
 export class UserController {
@@ -44,6 +43,7 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
@@ -57,6 +57,7 @@ export class UserController {
     return this.userService.findAll(page, limit);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
@@ -66,6 +67,7 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Update user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
@@ -80,6 +82,7 @@ export class UserController {
     return this.userService.update(id, updateUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Delete user by ID' })
   @ApiParam({ name: 'id', description: 'User ID' })
